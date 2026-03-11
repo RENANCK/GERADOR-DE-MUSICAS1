@@ -555,10 +555,14 @@
                     body: JSON.stringify({ name: nome, public: true })
                 })).json();
 
-                const uris = linksAtuais.map(link => {
-                    const id = link.includes('track/') ? link.split('track/')[1].split('?')[0] : link.split('/').pop().split('?')[0];
+               const uris = linksAtuais.map(link => {
+                    // Limpa o \r e qualquer espaço em branco fantasma
+                    let linkLimpo = link.replace(/[\r\n]/g, '').trim();
+                    
+                    const id = linkLimpo.includes('track/') ? linkLimpo.split('track/')[1].split('?')[0] : linkLimpo.split('/').pop().split('?')[0];
                     return 'spotify:track:' + id;
                 });
+                   
 
                 await fetch(apiEndpoint + '/playlists/' + playlist.id + '/tracks', {
                     method: 'POST',
@@ -576,3 +580,4 @@
     </script>
 </body>
 </html>
+
