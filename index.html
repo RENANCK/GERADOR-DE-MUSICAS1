@@ -540,44 +540,98 @@
             }
         }
 
-        async function exportarParaSpotifyAPI() {
-            if (!accessToken) return alert("Por favor, conecte-se ao Spotify primeiro clicando no botão verde no topo!");
-            const btn = document.getElementById('btn-exportar');
-            btn.innerText = "⏳ A criar a playlist...";
+async function exportarParaSpotifyAPI() {
+    if (!accessToken) {
+        alert("Por favor, conecte-se ao Spotify primeiro clicando no botão verde no topo!");
+        return;
+    }
 
-            try {
-                const user = await (await fetch(apiEndpoint + '/me', { headers: { 'Authorization': 'Bearer ' + accessToken } })).json();
-                
-                const nome = document.getElementById('nome_playlist').value || "Meu Mix Hiperfoco";
-                const playlist = await (await fetch(apiEndpoint + '/users/' + user.id + '/playlists', {
-                    method: 'POST',
-                    headers: { 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name: nome, public: true })
-                })).json();
+    const btn = document.getElementById('btn-exportar');
+    btn.innerText = "⏳ A criar a playlist...";
+    btn.disabled = true;
 
-               const uris = linksAtuais.map(link => {
-                    // Limpa o \r e qualquer espaço em branco fantasma
-                    let linkLimpo = link.replace(/[\r\n]/g, '').trim();
-                    
-                    const id = linkLimpo.includes('track/') ? linkLimpo.split('track/')[1].split('?')[0] : linkLimpo.split('/').pop().split('?')[0];
-                    return 'spotify:track:' + id;
-                });
-                   
+    try {
+        // 1. Buscar usuário logado
+        const userResponse = await fetch(apiEndpoint + '/me', {
+            headers: { 'Authorization': 'Bearer ' + accessToken }
+        });
 
-                await fetch(apiEndpoint + '/playlists/' + playlist.id + '/tracks', {
-                    method: 'POST',
-                    headers: { 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ uris: uris })
-                });
+        const user = await userResponse.json();
 
-                btn.innerText = "✅ Sucesso! Clicar para abrir no Spotify";
-                btn.onclick = () => window.open(playlist.external_urls.spotify, '_blank');
-            } catch (e) {
-                alert("Erro ao criar a playlist na sua conta. " + e.message);
-                btn.innerText = "Tentar novamente";
+        if (!userResponse.ok || !user.id) {
+            throw new Error(user?.error?.message || "Não foi possível obter os dados do usuário.");
+        }
+
+        // 2. Criar playlist
+        const nome = document.getElementById('nome_playlist').value || "Meu Mix Hiperfoco";
+
+        const playlistResponse = await fetch(apiEndpoint + '/users/' + user.id + '/playlists', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: nome, public: true })
+        });
+
+        const playlist = await playlistResponse.json();
+
+        if (!playlistResponse.ok || !playlist.id) {
+            throw new Error(playlist?.error?.message || "Não foi possível criar a playlist.");
+        }
+
+        // 3. Montar URIs
+        const uris = linksAtuais.map(link => {
+            const linkLimpo = link.replace(/[\r\n]/g, '').trim();
+            const id = linkLimpo.includes('track/')
+                ? linkLimpo.split('track/')[1].split('?')[0]
+                : linkLimpo.split('/').pop().split('?')[0];
+
+            return 'spotify:track:' + id;
+        });
+
+        if (!uris.length) {
+            throw new Error("Nenhuma música foi gerada para exportar.");
+        }
+
+        // 4. Adicionar músicas
+        const tracksResponse = await fetch(apiEndpoint + '/playlists/' + playlist.id + '/tracks', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ uris })
+        });
+
+        const tracksData = await tracksResponse.json().catch(() => ({}));
+
+        if (!tracksResponse.ok) {
+            throw new Error(tracksData?.error?.message || "Não foi possível adicionar as músicas.");
+        }
+
+        // 5. Abrir playlist com segurança
+        const spotifyUrl = playlist?.external_urls?.spotify;
+
+        if (!spotifyUrl) {
+            btn.innerText = "✅ Playlist criada com sucesso";
+            alert("A playlist foi criada, mas o link de abertura não foi retornado pela API.");
+            return;
+        }
+
+        btn.innerText = "✅ Sucesso! Clique para abrir no Spotify";
+        btn.onclick = () => window.open(spotifyUrl, '_blank');
+    } catch (e) {
+        alert("Erro ao criar a playlist na sua conta: " + e.message);
+        btn.innerText = "Tentar novamente";
+    } finally {
+        btn.disabled = false;
+    }
+}
             }
         }
     </script>
 </body>
 </html>
+
 
