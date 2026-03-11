@@ -525,7 +525,7 @@
 
                 const uris = linksAtuais.map(link => {
                     const id = link.includes('track/') ? link.split('track/')[1].split('?')[0] : link.split('/').pop().split('?')[0];
-                    return `spotify:track:${id}`;
+                    return `spotify:track:{id}`;
                 });
 
                 await fetch(`${apiBase}/playlists/${playlist.id}/tracks`, {
@@ -544,5 +544,6 @@
     </script>
 </body>
 </html>
+
 
 
