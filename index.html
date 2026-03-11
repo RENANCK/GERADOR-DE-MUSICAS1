@@ -10,7 +10,6 @@
         h1 { margin-top: 0; color: #ffffff; text-align: center; font-size: 1.8rem; }
         p { color: #b3b3b3; text-align: center; margin-bottom: 25px; font-size: 0.95rem; }
         
-        /* Botão de Login do Spotify */
         #btn-login { background-color: #1DB954; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; width: 100%; margin-bottom: 20px; }
         #btn-login.conectado { background-color: #333; color: #1DB954; border: 1px solid #1DB954; cursor: default; }
 
@@ -63,8 +62,11 @@
     <script>
         // ======= CONFIGURAÇÕES DO SPOTIFY =======
         const CLIENT_ID = '3effb29e1f6f451f82533d761edee1bd'; 
-        // Pega exatamente a URL onde você está acessando a página agora (ignora qualquer tralha no final)
-       const REDIRECT_URI = 'https://renanck.github.io/GERADOR-DE-MUSICAS1/.HTML';
+        
+        // Link corrigido: Deve ser exatamente o link que abre o seu site. 
+        // Se o seu arquivo no GitHub se chama "gerador.html", troque a palavra "index.html" abaixo.
+        const REDIRECT_URI = 'https://renanck.github.io/GERADOR-DE-MUSICAS1/index.html';
+        
         let accessToken = null;
         let linksAtuais = [];
 
@@ -74,20 +76,19 @@
             const params = new URLSearchParams(hash);
             if (params.has('access_token')) {
                 accessToken = params.get('access_token');
-                // Limpa a URL para ficar bonita
                 window.history.pushState("", document.title, REDIRECT_URI);
                 
-                // Atualiza o botão
                 const btnLogin = document.getElementById('btn-login');
                 btnLogin.innerText = "🟢 Spotify Conectado";
                 btnLogin.classList.add("conectado");
-                btnLogin.onclick = null; // Remove a ação de clique
+                btnLogin.onclick = null;
             }
         };
 
         // 2. Manda o usuário para a tela de permissão do Spotify
         function loginSpotify() {
             const scopes = 'playlist-modify-public playlist-modify-private';
+            // URL Oficial de Autorização Restaurada
             const authUrl = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=token&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${encodeURIComponent(scopes)}`;
             window.location.href = authUrl;
         }
@@ -95,17 +96,15 @@
         // ======= LÓGICA DO SEU BANCO DE MÚSICAS =======
         const nomesCategorias = { nostalgica: "Nostálgica", infinite: "INFINITE", trap: "TRAP", foco: "FOCO", mpb: "MPB", motivacao: "Motivação", de_agora: "De Agora" };
         
-        // NOTA: Para a API do Spotify funcionar de verdade, os links aqui PRECISAM ser do tipo:
-        // "https://open.spotify.com/track/XXXXXXXXXXXXX"
-        // (Usei alguns exemplos reais aqui para você ver como funciona)
+        // Coloque aqui seus links REAIS do Spotify no formato: "https://open.spotify.com/track/ID_DA_MUSICA"
         const bancoDeMusicas = {
-            "trap":["https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT", "https://open.spotify.com/track/7lQ8MZeD6cqHXYvqZMBB27"],
-            "nostalgica":["https://open.spotify.com/track/1di1E26AUQz7DihXqX2R1J", "https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC"],
-            "mpb":["https://open.spotify.com/track/6QScn2R7bTkiUeAabVd2N6", "https://open.spotify.com/track/3ZE0C3a2L4x64t1oI3iA3r"],
-            "motivacao":["https://open.spotify.com/track/27L8sESb3KR79asDUBu8av", "https://open.spotify.com/track/5u1n1kITHCxxp8twBcZxDz"],
-            "infinite":["https://open.spotify.com/track/5rX6C5QVvvZB7X14uEgw88", "https://open.spotify.com/track/3ee8Jmje8o58CHK66QrVC2"],
-            "foco":["https://open.spotify.com/track/6UelLqGlDPcVTMsSQIT2gO", "https://open.spotify.com/track/0RiRZpuVRbi7oqRdSMwhQY"],
-            "de_agora":["https://open.spotify.com/track/0pqnGHJpmpxLKifKRmU6WP", "https://open.spotify.com/track/3B54sVLJ402zHx6hQzF93z"]
+            "trap":["https://open.spotify.com/track/6gBFPUFcJLzWGx4lenP6h2", "https://open.spotify.com/track/7lQ8MOhq6IN2w8EYcFxZaLS"],
+            "nostalgica":["https://open.spotify.com/track/3zBhihYUHBmGd2bcQIobrF", "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"],
+            "mpb":["https://open.spotify.com/track/5uCax9HTNlzGybIStD3vDh", "https://open.spotify.com/track/7yyxtGcw5vKz0G8IuW9wR7"],
+            "motivacao":["https://open.spotify.com/track/2VxeLyX666F8uXCJ0dZF8B", "https://open.spotify.com/track/5kO1xOItfLqH8S5A1g9lP2"],
+            "infinite":["https://open.spotify.com/track/4PTG3Z6ehGkBFwjybzWkR8", "https://open.spotify.com/track/0qCrGzM12IikRBY7G222oE"],
+            "foco":["https://open.spotify.com/track/6K4t31amVTZDgR3sKmwUJJ", "https://open.spotify.com/track/3d9DChrdc6BOeFsbrZ3Is0"],
+            "de_agora":["https://open.spotify.com/track/1M4oA2c1xLITqD72T3pC3g", "https://open.spotify.com/track/7ouMYZxgVebOQoT1oK4vMv"]
         };
 
         function embaralhar(array) {
@@ -114,6 +113,39 @@
                 [array[i], array[j]] = [array[j], array[i]];
             }
             return array;
+        }
+
+        // Função para calcular proporção exata de 12 músicas
+        function calcularVagasExatas(pesos, totalVagas = 12) {
+            let somaPesos = Object.values(pesos).reduce((a, b) => a + b, 0);
+            if (somaPesos === 0) return null;
+
+            let inteiros = {};
+            let restos = [];
+
+            for (let cat in pesos) {
+                let valorExato = (pesos[cat] / somaPesos) * totalVagas;
+                inteiros[cat] = Math.floor(valorExato);
+                restos.push({ cat: cat, resto: valorExato - inteiros[cat] });
+            }
+
+            let somaInteiros = Object.values(inteiros).reduce((a, b) => a + b, 0);
+            let vagasRestantes = totalVagas - somaInteiros;
+
+            restos.sort((a, b) => b.resto - a.resto);
+            for (let i = 0; i < vagasRestantes; i++) {
+                inteiros[restos[i].cat]++;
+            }
+
+            return inteiros;
+        }
+
+        function sortearDaLista(lista, quantidade) {
+            if (!lista || lista.length === 0) return [];
+            let copia = [...lista];
+            copia = embaralhar(copia);
+            // Evita erro se pedir mais músicas do que tem no banco
+            return copia.slice(0, Math.min(quantidade, lista.length)); 
         }
 
         function gerarPlaylist() {
@@ -127,23 +159,26 @@
                 de_agora: Number(document.getElementById('perc_de_agora').value)
             };
 
-            let somaPesos = Object.values(pesos).reduce((a, b) => a + b, 0);
-            if (somaPesos === 0) { alert("Adicione alguma porcentagem!"); return; }
+            const vagas = calcularVagasExatas(pesos, 12);
+            if (!vagas) { alert("Adicione alguma porcentagem!"); return; }
 
             let faixasSorteadas = [];
             linksAtuais = []; 
 
-            // Algoritmo simplificado para puxar as músicas baseado no peso
-            for (let categoria in pesos) {
-                if(pesos[categoria] > 0 && bancoDeMusicas[categoria].length > 0) {
-                    // Tenta puxar de 1 a 3 faixas por categoria escolhida para o exemplo
-                    let misturado = embaralhar([...bancoDeMusicas[categoria]]);
-                    let link = misturado[0];
-                    
-                    faixasSorteadas.push({ categoria: nomesCategorias[categoria], link: link });
-                    linksAtuais.push(link);
+            // Usa as vagas calculadas para puxar as músicas exatas
+            for (let categoria in vagas) {
+                if (vagas[categoria] > 0) {
+                    const linksSorteados = sortearDaLista(bancoDeMusicas[categoria], vagas[categoria]);
+                    linksSorteados.forEach(url => {
+                        faixasSorteadas.push({ categoria: nomesCategorias[categoria], link: url });
+                        linksAtuais.push(url);
+                    });
                 }
             }
+            
+            faixasSorteadas = embaralhar(faixasSorteadas);
+            // Mantém a ordem sincronizada
+            linksAtuais = faixasSorteadas.map(faixa => faixa.link);
 
             const divResultado = document.getElementById('playlist-resultado');
             divResultado.innerHTML = '';
@@ -161,7 +196,7 @@
             document.getElementById('btn-exportar').style.display = 'block';
         }
 
-        // ======= API DO SPOTIFY: CRIANDO A PLAYLIST =======
+        // ======= API DO SPOTIFY RESTAURADA =======
         async function exportarParaSpotifyAPI() {
             if (!accessToken) {
                 alert("Você precisa clicar em 'Conectar com Spotify' primeiro!");
@@ -172,14 +207,13 @@
             btn.innerText = "⏳ Criando sua Playlist...";
 
             try {
-                // 1. Pegar o ID do seu usuário
+                // Endpoints Oficiais da API do Spotify
                 const userResponse = await fetch("https://api.spotify.com/v1/me", {
                     headers: { 'Authorization': 'Bearer ' + accessToken }
                 });
                 const userData = await userResponse.json();
                 const userId = userData.id;
 
-                // 2. Criar a Playlist Vazia
                 const playlistResponse = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
                     method: 'POST',
                     headers: { 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
@@ -192,13 +226,11 @@
                 const playlistData = await playlistResponse.json();
                 const playlistId = playlistData.id;
 
-                // 3. Converter seus links do banco para o formato "spotify:track:ID"
                 const urisParaAdicionar = linksAtuais.map(link => {
-                    const id = link.split('track/')[1].split('?')[0]; // Extrai o ID do link
+                    const id = link.split('track/')[1].split('?')[0]; 
                     return `spotify:track:${id}`;
                 });
 
-                // 4. Inserir as músicas na Playlist
                 await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
                     method: 'POST',
                     headers: { 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
@@ -211,11 +243,10 @@
 
             } catch (error) {
                 console.error(error);
-                alert("Ops! Ocorreu um erro de comunicação com o Spotify.");
+                alert("Ops! Ocorreu um erro de comunicação com o Spotify. Verifique se as músicas são válidas.");
                 btn.innerText = "Tentar Novamente";
             }
         }
     </script>
 </body>
-
 </html>
