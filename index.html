@@ -770,16 +770,21 @@
     }
 
     function lerPesosDosInputs() {
+      const lerPeso = (id) => {
+        const valor = Number(document.getElementById(id).value);
+        return Number.isFinite(valor) && valor > 0 ? valor : 0;
+      };
+
       return {
-        nostalgica: Number(document.getElementById("perc_nostalgica").value),
-        motivacao: Number(document.getElementById("perc_motivacao").value),
-        mpb: Number(document.getElementById("perc_mpb").value),
-        hip_hop: Number(document.getElementById("perc_hip_hop").value),
-        bossa_nova: Number(document.getElementById("perc_bossa_nova").value),
-        latina: Number(document.getElementById("perc_latina").value),
-        movie: Number(document.getElementById("perc_movie").value),
-        reggae: Number(document.getElementById("perc_reggae").value),
-        aleatoria: Number(document.getElementById("perc_aleatoria").value)
+        nostalgica: lerPeso("perc_nostalgica"),
+        motivacao: lerPeso("perc_motivacao"),
+        mpb: lerPeso("perc_mpb"),
+        hip_hop: lerPeso("perc_hip_hop"),
+        bossa_nova: lerPeso("perc_bossa_nova"),
+        latina: lerPeso("perc_latina"),
+        movie: lerPeso("perc_movie"),
+        reggae: lerPeso("perc_reggae"),
+        aleatoria: lerPeso("perc_aleatoria")
       };
     }
 
@@ -893,7 +898,8 @@
     async function gerarETocar() {
       esconderAlerta();
 
-      const total = parseInt(document.getElementById("total_musicas").value) || 12;
+      const totalInput = parseInt(document.getElementById("total_musicas").value, 10);
+      const total = Number.isFinite(totalInput) && totalInput > 0 ? totalInput : 12;
       const pesos = lerPesosDosInputs();
       const vagas = calcularVagasExatas(pesos, total);
 
