@@ -3,240 +3,237 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Plano Inglês 30 Dias</title>
+  <title>Plano de Inglês - 30 Dias</title>
   <style>
-    :root {
-      --bg: #0f1115;
-      --card: #181c23;
-      --card-2: #202632;
-      --text: #f5f7fb;
-      --muted: #aeb8c9;
-      --primary: #4f8cff;
-      --primary-2: #6ba0ff;
-      --success: #2ecc71;
-      --border: rgba(255,255,255,0.08);
-      --danger: #ff5f5f;
-      --shadow: 0 10px 30px rgba(0,0,0,0.3);
+    :root{
+      --bg:#0e1116;
+      --card:#171b22;
+      --card2:#1f2630;
+      --text:#f5f7fb;
+      --muted:#aab4c4;
+      --primary:#5b8cff;
+      --primary-2:#79a3ff;
+      --success:#2ecc71;
+      --warning:#ffcc66;
+      --danger:#ff6464;
+      --border:rgba(255,255,255,0.08);
+      --shadow:0 12px 30px rgba(0,0,0,.28);
     }
 
-    * {
-      box-sizing: border-box;
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:linear-gradient(180deg,#0b0f14 0%, #101722 100%);
+      color:var(--text);
+      min-height:100vh;
+      padding:24px;
     }
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #0d1016 0%, #111622 100%);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 24px;
+    .container{
+      max-width:1100px;
+      margin:0 auto;
     }
 
-    .container {
-      max-width: 1050px;
-      margin: 0 auto;
+    .hero,.card{
+      background:rgba(23,27,34,.96);
+      border:1px solid var(--border);
+      border-radius:20px;
+      box-shadow:var(--shadow);
     }
 
-    .hero, .card {
-      background: rgba(24, 28, 35, 0.95);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
+    .hero{
+      padding:24px;
+      margin-bottom:20px;
     }
 
-    .hero {
-      padding: 24px;
-      margin-bottom: 20px;
+    h1,h2,h3{margin:0}
+    p{color:var(--muted); line-height:1.6}
+
+    .top-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:14px;
+      margin-top:18px;
     }
 
-    h1 {
-      margin: 0 0 10px;
-      font-size: 2rem;
+    .mini-card{
+      background:var(--card2);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:16px;
     }
 
-    p {
-      color: var(--muted);
-      line-height: 1.6;
-      margin-top: 6px;
+    .mini-label{
+      color:var(--muted);
+      font-size:.9rem;
+      margin-bottom:8px;
     }
 
-    .top-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
+    .mini-value{
+      font-size:1.2rem;
+      font-weight:bold;
+      line-height:1.35;
     }
 
-    .mini-card {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px;
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
     }
 
-    .mini-label {
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-bottom: 8px;
+    button, .action-link{
+      border:none;
+      border-radius:12px;
+      padding:12px 16px;
+      cursor:pointer;
+      font-size:.95rem;
+      font-weight:bold;
+      transition:.18s ease;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
     }
 
-    .mini-value {
-      font-size: 1.3rem;
-      font-weight: bold;
+    .btn-primary{
+      background:var(--primary);
+      color:white;
+    }
+    .btn-primary:hover{
+      background:var(--primary-2);
+      transform:translateY(-1px);
     }
 
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 18px;
+    .btn-secondary{
+      background:#2a3340;
+      color:white;
+    }
+    .btn-secondary:hover{
+      background:#344254;
+      transform:translateY(-1px);
     }
 
-    button, a.action-link {
-      border: none;
-      border-radius: 12px;
-      padding: 12px 16px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: bold;
-      text-decoration: none;
-      transition: 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+    .btn-danger{
+      background:var(--danger);
+      color:white;
+    }
+    .btn-danger:hover{
+      filter:brightness(1.04);
+      transform:translateY(-1px);
     }
 
-    .btn-primary {
-      background: var(--primary);
-      color: white;
+    .card{
+      padding:20px;
     }
 
-    .btn-primary:hover {
-      background: var(--primary-2);
-      transform: translateY(-1px);
+    .day-list{
+      display:grid;
+      gap:12px;
+      margin-top:14px;
     }
 
-    .btn-secondary {
-      background: #2a3240;
-      color: white;
+    .day-item{
+      background:var(--card2);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:14px;
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      gap:14px;
+      align-items:center;
     }
 
-    .btn-secondary:hover {
-      background: #344053;
-      transform: translateY(-1px);
+    .day-item.today{
+      outline:2px solid var(--primary);
     }
 
-    .btn-danger {
-      background: var(--danger);
-      color: white;
+    .day-item.done{
+      background:rgba(46,204,113,.08);
+      border-color:rgba(46,204,113,.28);
     }
 
-    .btn-danger:hover {
-      filter: brightness(1.05);
-      transform: translateY(-1px);
+    .checkbox{
+      width:22px;
+      height:22px;
+      accent-color:var(--success);
+      cursor:pointer;
     }
 
-    .card {
-      padding: 20px;
+    .day-info h3{
+      font-size:1rem;
+      margin-bottom:6px;
     }
 
-    .section-title {
-      margin: 0 0 14px;
-      font-size: 1.3rem;
+    .day-info p{
+      margin:0;
+      font-size:.93rem;
     }
 
-    .day-list {
-      display: grid;
-      gap: 12px;
+    .day-links{
+      margin-top:8px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
     }
 
-    .day-item {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 14px;
-      align-items: center;
+    .small-link{
+      color:#9dc0ff;
+      text-decoration:none;
+      font-size:.9rem;
     }
 
-    .day-item.today {
-      outline: 2px solid var(--primary);
+    .small-link:hover{
+      text-decoration:underline;
     }
 
-    .day-item.done {
-      border-color: rgba(46, 204, 113, 0.4);
-      background: rgba(46, 204, 113, 0.08);
+    .tag{
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:.8rem;
+      font-weight:bold;
+      white-space:nowrap;
+      border:1px solid transparent;
     }
 
-    .checkbox {
-      width: 22px;
-      height: 22px;
-      cursor: pointer;
-      accent-color: var(--success);
+    .tag.today{
+      background:rgba(91,140,255,.14);
+      color:#9ab9ff;
+      border-color:rgba(91,140,255,.25);
     }
 
-    .day-info h3 {
-      margin: 0 0 6px;
-      font-size: 1rem;
+    .tag.done{
+      background:rgba(46,204,113,.14);
+      color:#7ee5aa;
+      border-color:rgba(46,204,113,.25);
     }
 
-    .day-info p {
-      margin: 0;
-      font-size: 0.92rem;
+    .tag.pending{
+      background:rgba(255,255,255,.05);
+      color:var(--muted);
+      border-color:rgba(255,255,255,.08);
     }
 
-    .tag {
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      white-space: nowrap;
+    .note{
+      font-size:.92rem;
+      color:var(--muted);
+      margin-top:10px;
     }
 
-    .tag.today {
-      background: rgba(79, 140, 255, 0.15);
-      color: #8db4ff;
-      border: 1px solid rgba(79, 140, 255, 0.25);
+    .highlight{
+      color:#fff;
+      font-weight:bold;
     }
 
-    .tag.done {
-      background: rgba(46, 204, 113, 0.15);
-      color: #76e3a4;
-      border: 1px solid rgba(46, 204, 113, 0.25);
-    }
-
-    .tag.pending {
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--muted);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .footer-note {
-      margin-top: 16px;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .small-link {
-      color: #9ec0ff;
-      text-decoration: none;
-      font-size: 0.9rem;
-    }
-
-    .small-link:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 700px) {
-      .day-item {
-        grid-template-columns: auto 1fr;
+    @media (max-width:700px){
+      .day-item{
+        grid-template-columns:auto 1fr;
       }
-
-      .tag {
-        grid-column: 1 / -1;
-        width: fit-content;
+      .tag{
+        grid-column:1 / -1;
+        width:fit-content;
       }
     }
   </style>
@@ -246,8 +243,9 @@
     <section class="hero">
       <h1>Plano de Inglês — 30 Dias</h1>
       <p>
-        O sistema considera <strong>19/03/2026</strong> como o <strong>Dia 1</strong>.
-        Cada dia tem um link principal para estudo e uma checklist que pode ser marcada.
+        Base inicial: <strong>19/03/2026</strong> = <strong>Dia 1</strong>.
+        Agora o site <span class="highlight">não abre nada sozinho</span>.
+        Você escolhe quando abrir o estudo do dia.
       </p>
 
       <div class="top-grid">
@@ -267,223 +265,217 @@
         </div>
 
         <div class="mini-card">
-          <div class="mini-label">Link do dia</div>
+          <div class="mini-label">Recurso de hoje</div>
           <div class="mini-value" id="todayResource">Carregando...</div>
         </div>
       </div>
 
       <div class="actions">
-        <button class="btn-primary" id="openTodayBtn">Abrir link de hoje</button>
-        <button class="btn-secondary" id="toggleRedirectBtn">Desativar redirecionamento automático</button>
+        <button class="btn-primary" id="openTodayBtn">Abrir estudo de hoje</button>
+        <button class="btn-secondary" id="markTodayBtn">Marcar hoje como concluído</button>
         <button class="btn-danger" id="resetChecklistBtn">Resetar checklist</button>
       </div>
 
-      <p class="footer-note">
-        O redirecionamento automático acontece 2 segundos após abrir a página, se estiver ativado.
-      </p>
+      <div class="note">
+        O link abre em nova aba. Nada é aberto automaticamente.
+      </div>
     </section>
 
     <section class="card">
-      <h2 class="section-title">Checklist dos 30 dias</h2>
+      <h2>Checklist dos 30 dias</h2>
       <div class="day-list" id="dayList"></div>
     </section>
   </div>
 
   <script>
-    // =========================
-    // CONFIGURAÇÃO
-    // =========================
     const startDate = new Date("2026-03-19T00:00:00");
+    const STORAGE_CHECKLIST = "english30_checklist_live_links_v2";
 
+    // Links de estudo reais / páginas utilizáveis
+    // Você pode trocar qualquer um por outro link depois.
     const plan = [
       {
         title: "Dia 1 — Apresentação pessoal",
-        description: "Fale nome, cidade, curso, gostos e grave sua voz.",
-        link: "https://github.com/huytd/speech",
-        resource: "huytd/speech"
+        description: "Treine frases simples sobre você e fale por 1-2 minutos.",
+        resource: "Pronunciation Checker",
+        link: "https://pronunciationchecker.com/"
       },
       {
         title: "Dia 2 — Shadowing básico",
-        description: "Repita frases curtas imitando ritmo e entonação.",
-        link: "https://github.com/Dthurow/SpeechShadowing",
-        resource: "SpeechShadowing"
+        description: "Repita frases curtas com áudio e imite o ritmo.",
+        resource: "BBC 6 Minute English",
+        link: "https://www.bbc.co.uk/learningenglish/english/features/6-minute-english"
       },
       {
-        title: "Dia 3 — Pronúncia de palavras do cotidiano",
-        description: "Treine palavras como study, bus, class, coffee.",
-        link: "https://github.com/Thiagohgl/ai-pronunciation-trainer",
-        resource: "AI Pronunciation Trainer"
+        title: "Dia 3 — Pronúncia do cotidiano",
+        description: "Treine study, class, coffee, bus, focus, friend.",
+        resource: "Pronunciation Checker",
+        link: "https://pronunciationchecker.com/"
       },
       {
         title: "Dia 4 — Rotina do dia",
-        description: "Fale sobre o que fez hoje e o que fará amanhã.",
-        link: "https://github.com/Dthurow/SpeechShadowing",
-        resource: "SpeechShadowing"
+        description: "Fale sobre hoje e amanhã usando frases simples.",
+        resource: "TalkEnglish Speaking",
+        link: "https://www.talkenglish.com/speaking/"
       },
       {
         title: "Dia 5 — Frases úteis",
-        description: "Escolha 15 frases e adapte 5 para sua vida.",
-        link: "https://github.com/yvoronoy/awesome-english",
-        resource: "awesome-english"
+        description: "Use frases prontas e adapte para sua vida.",
+        resource: "ESL Lab",
+        link: "https://www.esl-lab.com/"
       },
       {
         title: "Dia 6 — Casa e bairro",
         description: "Descreva quarto, casa e rua em inglês.",
-        link: "https://github.com/Dthurow/SpeechShadowing",
-        resource: "SpeechShadowing"
+        resource: "Rachel's English",
+        link: "https://rachelsenglish.com/"
       },
       {
         title: "Dia 7 — Revisão da semana",
-        description: "Regrave sua apresentação e compare com o Dia 1.",
-        link: "https://github.com/huytd/speech",
-        resource: "huytd/speech"
+        description: "Regrave sua apresentação e compare.",
+        resource: "Pronunciation Checker",
+        link: "https://pronunciationchecker.com/"
       },
       {
         title: "Dia 8 — Quem é você?",
         description: "Responda who are you, what do you study, why English.",
-        link: "https://github.com/huytd/speech",
-        resource: "huytd/speech"
+        resource: "TalkEnglish Speaking",
+        link: "https://www.talkenglish.com/speaking/"
       },
       {
         title: "Dia 9 — Rotina completa",
         description: "Fale sua rotina inteira por 2 minutos.",
-        link: "https://github.com/Dthurow/SpeechShadowing",
-        resource: "SpeechShadowing"
+        resource: "BBC 6 Minute English",
+        link: "https://www.bbc.co.uk/learningenglish/english/features/6-minute-english"
       },
       {
         title: "Dia 10 — Lugares",
-        description: "Pratique palavras como room, street, bus stop, university.",
-        link: "https://github.com/Thiagohgl/ai-pronunciation-trainer",
-        resource: "AI Pronunciation Trainer"
+        description: "Treine room, street, university, bus stop.",
+        resource: "Pronunciation Checker",
+        link: "https://pronunciationchecker.com/"
       },
       {
         title: "Dia 11 — Gostos e preferências",
-        description: "Fale sobre música, séries, comida e estudos.",
-        link: "https://github.com/huytd/speech",
-        resource: "huytd/speech"
+        description: "Fale sobre comida, música, séries e estudos.",
+        resource: "TalkEnglish Speaking",
+        link: "https://www.talkenglish.com/speaking/"
       },
       {
         title: "Dia 12 — Perguntas e respostas",
         description: "Responda perguntas básicas sem olhar.",
-        link: "https://github.com/yvoronoy/awesome-english",
-        resource: "awesome-english"
+        resource: "ESL Lab",
+        link: "https://www.esl-lab.com/"
       },
       {
         title: "Dia 13 — Shadowing maior",
-        description: "Frases maiores, menos pausas, mais naturalidade.",
-        link: "https://github.com/Dthurow/SpeechShadowing",
-        resource: "SpeechShadowing"
+        description: "Frases maiores, menos pausas e mais naturalidade.",
+        resource: "BBC 6 Minute English",
+        link: "https://www.bbc.co.uk/learningenglish/english/features/6-minute-english"
       },
       {
         title: "Dia 14 — Revisão semanal",
-        description: "Grave 3 minutos sobre você, rotina e objetivos.",
-        link: "https://github.com/huytd/speech",
-        resource: "huytd/speech"
+        description: "Grave 3 minutos sobre você, rotina e objetivo.",
+        resource: "Pronunciation Checker",
+        link: "https://pronunciationchecker.com/"
       },
       {
         title: "Dia 15 — Transporte e rua",
         description: "Pratique perguntas como how can I get there.",
-        link: "https://github.com/yvoronoy/awesome-english",
-        resource: "awesome-english"
+        resource: "TalkEnglish Speaking",
+        link: "https://www.talkenglish.com/speaking/"
       },
       {
         title: "Dia 16 — Faculdade ou trabalho",
         description: "Explique seu curso ou função em inglês.",
-        link: "https://github.com/Thiagohgl/ai-pronunciation-trainer",
-        resource: "AI Pronunciation Trainer"
+        resource: "Pronunciation Checker",
+        link: "https://pronunciationchecker.com/"
       },
       {
         title: "Dia 17 — Compras e comida",
-        description: "Monte roleplays simples para comprar e pedir comida.",
-        link: "https://github.com/yvoronoy/awesome-english",
-        resource: "awesome-english"
+        description: "Faça mini diálogos de compra e pedido.",
+        resource: "ESL Lab",
+        link: "https://www.esl-lab.com/"
       },
       {
         title: "Dia 18 — Falar do que comeu",
-        description: "Shadowing com foco em blocos de som.",
-        link: "https://github.com/Dthurow/SpeechShadowing",
-        resource: "SpeechShadowing"
+        description: "Repita e fale com blocos de som mais naturais.",
+        resource: "Rachel's English",
+        link: "https://rachelsenglish.com/"
       },
       {
         title: "Dia 19 — Opiniões e sentimentos",
-        description: "Use frases com I think, I feel, in my opinion.",
-        link: "https://github.com/huytd/speech",
-        resource: "huytd/speech"
+        description: "Use I think, I feel, in my opinion.",
+        resource: "TalkEnglish Speaking",
+        link: "https://www.talkenglish.com/speaking/"
       },
       {
         title: "Dia 20 — Revisão de erros",
         description: "Pegue palavras difíceis e repita até clarear.",
-        link: "https://github.com/Thiagohgl/ai-pronunciation-trainer",
-        resource: "AI Pronunciation Trainer"
+        resource: "Pronunciation Checker",
+        link: "https://pronunciationchecker.com/"
       },
       {
         title: "Dia 21 — Revisão geral",
-        description: "Grave 3 minutos sobre sua semana e evolução.",
-        link: "https://github.com/huytd/speech",
-        resource: "huytd/speech"
+        description: "Grave 3 minutos sobre sua semana.",
+        resource: "Pronunciation Checker",
+        link: "https://pronunciationchecker.com/"
       },
       {
         title: "Dia 22 — Planos",
-        description: "Fale sobre seus próximos 7 dias.",
-        link: "https://github.com/huytd/speech",
-        resource: "huytd/speech"
+        description: "Fale sobre os próximos 7 dias.",
+        resource: "TalkEnglish Speaking",
+        link: "https://www.talkenglish.com/speaking/"
       },
       {
         title: "Dia 23 — Shadowing intenso",
-        description: "Repita 15 a 20 minutos e depois sem áudio.",
-        link: "https://github.com/Dthurow/SpeechShadowing",
-        resource: "SpeechShadowing"
+        description: "Repita bastante e depois tente sem áudio.",
+        resource: "BBC 6 Minute English",
+        link: "https://www.bbc.co.uk/learningenglish/english/features/6-minute-english"
       },
       {
         title: "Dia 24 — Descrever pessoas e lugares",
-        description: "Descreva seu quarto, faculdade ou bairro.",
-        link: "https://github.com/yvoronoy/awesome-english",
-        resource: "awesome-english"
+        description: "Descreva quarto, faculdade e bairro.",
+        resource: "Rachel's English",
+        link: "https://rachelsenglish.com/"
       },
       {
         title: "Dia 25 — Explicar processos",
-        description: "Explique como estuda, vai de ônibus ou organiza o dia.",
-        link: "https://github.com/huytd/speech",
-        resource: "huytd/speech"
+        description: "Explique como estuda, se locomove e organiza o dia.",
+        resource: "TalkEnglish Speaking",
+        link: "https://www.talkenglish.com/speaking/"
       },
       {
         title: "Dia 26 — Revisão de pronúncia",
-        description: "Treine 20 palavras difíceis do mês.",
-        link: "https://github.com/Thiagohgl/ai-pronunciation-trainer",
-        resource: "AI Pronunciation Trainer"
+        description: "Treine suas 20 palavras mais difíceis.",
+        resource: "Pronunciation Checker",
+        link: "https://pronunciationchecker.com/"
       },
       {
         title: "Dia 27 — Simulação de conversa",
-        description: "Responda perguntas como Tell me about yourself.",
-        link: "https://github.com/yvoronoy/awesome-english",
-        resource: "awesome-english"
+        description: "Responda perguntas comuns de conversação.",
+        resource: "Tandem",
+        link: "https://www.tandem.net/"
       },
       {
         title: "Dia 28 — Shadowing final",
         description: "Foco em soar mais natural e automático.",
-        link: "https://github.com/Dthurow/SpeechShadowing",
-        resource: "SpeechShadowing"
+        resource: "BBC 6 Minute English",
+        link: "https://www.bbc.co.uk/learningenglish/english/features/6-minute-english"
       },
       {
         title: "Dia 29 — Monólogo longo",
-        description: "Grave 4 minutos sobre vida, rotina e metas.",
-        link: "https://github.com/huytd/speech",
-        resource: "huytd/speech"
+        description: "Grave 4 minutos sobre rotina, metas e dificuldades.",
+        resource: "Pronunciation Checker",
+        link: "https://pronunciationchecker.com/"
       },
       {
         title: "Dia 30 — Teste final",
-        description: "Refaça a gravação do Dia 1 e compare sua evolução.",
-        link: "https://github.com/huytd/speech",
-        resource: "huytd/speech"
+        description: "Refaça sua gravação inicial e compare.",
+        resource: "Pronunciation Checker",
+        link: "https://pronunciationchecker.com/"
       }
     ];
 
-    const STORAGE_CHECKLIST = "english30_checklist_v1";
-    const STORAGE_REDIRECT = "english30_redirect_enabled_v1";
-
-    // =========================
-    // FUNÇÕES
-    // =========================
     function getTodayWithoutTime() {
       const now = new Date();
       return new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -492,8 +484,8 @@
     function getDayNumber() {
       const today = getTodayWithoutTime();
       const diffMs = today - startDate;
-      const dayDiff = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-      return dayDiff + 1;
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      return diffDays + 1;
     }
 
     function clampDay(day) {
@@ -515,46 +507,41 @@
       }
     }
 
-    function saveChecklist(data) {
-      localStorage.setItem(STORAGE_CHECKLIST, JSON.stringify(data));
+    function saveChecklist(arr) {
+      localStorage.setItem(STORAGE_CHECKLIST, JSON.stringify(arr));
     }
 
-    function isRedirectEnabled() {
-      const value = localStorage.getItem(STORAGE_REDIRECT);
-      if (value === null) return true;
-      return value === "true";
-    }
-
-    function setRedirectEnabled(value) {
-      localStorage.setItem(STORAGE_REDIRECT, String(value));
-    }
-
-    function updateHeaderInfo(checklist, currentDay) {
-      document.getElementById("currentDayText").textContent = `Dia ${currentDay}`;
-      document.getElementById("doneCount").textContent =
-        `${checklist.filter(Boolean).length} / 30`;
-
+    function updateTop(checklist, currentDay) {
       const todayPlan = plan[currentDay - 1];
+      document.getElementById("currentDayText").textContent = `Dia ${currentDay}`;
+      document.getElementById("doneCount").textContent = `${checklist.filter(Boolean).length} / 30`;
       document.getElementById("todayResource").textContent = todayPlan.resource;
+    }
 
-      const toggleBtn = document.getElementById("toggleRedirectBtn");
-      toggleBtn.textContent = isRedirectEnabled()
-        ? "Desativar redirecionamento automático"
-        : "Ativar redirecionamento automático";
+    function openTodayStudy() {
+      const currentDay = clampDay(getDayNumber());
+      window.open(plan[currentDay - 1].link, "_blank", "noopener,noreferrer");
+    }
+
+    function markTodayDone() {
+      const checklist = loadChecklist();
+      const currentDay = clampDay(getDayNumber());
+      checklist[currentDay - 1] = true;
+      saveChecklist(checklist);
+      renderChecklist();
     }
 
     function renderChecklist() {
-      const dayList = document.getElementById("dayList");
+      const list = document.getElementById("dayList");
       const checklist = loadChecklist();
-      const currentDayRaw = getDayNumber();
-      const currentDay = clampDay(currentDayRaw);
+      const currentDay = clampDay(getDayNumber());
 
-      dayList.innerHTML = "";
+      list.innerHTML = "";
 
       plan.forEach((item, index) => {
         const day = index + 1;
-        const isDone = checklist[index];
         const isToday = day === currentDay;
+        const isDone = checklist[index];
 
         const row = document.createElement("div");
         row.className = "day-item";
@@ -565,7 +552,6 @@
         checkbox.type = "checkbox";
         checkbox.className = "checkbox";
         checkbox.checked = isDone;
-
         checkbox.addEventListener("change", () => {
           const updated = loadChecklist();
           updated[index] = checkbox.checked;
@@ -578,11 +564,9 @@
         info.innerHTML = `
           <h3>${item.title}</h3>
           <p>${item.description}</p>
-          <p style="margin-top:8px;">
-            <a class="small-link" href="${item.link}" target="_blank" rel="noopener noreferrer">
-              Abrir recurso
-            </a>
-          </p>
+          <div class="day-links">
+            <a class="small-link" href="${item.link}" target="_blank" rel="noopener noreferrer">Abrir estudo</a>
+          </div>
         `;
 
         const tag = document.createElement("div");
@@ -601,38 +585,14 @@
         row.appendChild(checkbox);
         row.appendChild(info);
         row.appendChild(tag);
-
-        dayList.appendChild(row);
+        list.appendChild(row);
       });
 
-      updateHeaderInfo(checklist, currentDay);
+      updateTop(checklist, currentDay);
     }
 
-    function openTodayLink() {
-      const currentDay = clampDay(getDayNumber());
-      const todayPlan = plan[currentDay - 1];
-      window.open(todayPlan.link, "_blank");
-    }
-
-    function autoRedirectToday() {
-      if (!isRedirectEnabled()) return;
-      const currentDay = clampDay(getDayNumber());
-      const todayPlan = plan[currentDay - 1];
-
-      setTimeout(() => {
-        window.location.href = todayPlan.link;
-      }, 2000);
-    }
-
-    // =========================
-    // EVENTOS
-    // =========================
-    document.getElementById("openTodayBtn").addEventListener("click", openTodayLink);
-
-    document.getElementById("toggleRedirectBtn").addEventListener("click", () => {
-      setRedirectEnabled(!isRedirectEnabled());
-      renderChecklist();
-    });
+    document.getElementById("openTodayBtn").addEventListener("click", openTodayStudy);
+    document.getElementById("markTodayBtn").addEventListener("click", markTodayDone);
 
     document.getElementById("resetChecklistBtn").addEventListener("click", () => {
       if (confirm("Tem certeza que deseja resetar toda a checklist?")) {
@@ -641,11 +601,7 @@
       }
     });
 
-    // =========================
-    // INÍCIO
-    // =========================
     renderChecklist();
-    autoRedirectToday();
   </script>
 </body>
 </html>
